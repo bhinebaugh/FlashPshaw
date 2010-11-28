@@ -38,11 +38,10 @@
 	public function playCard() {
 		var i:Number; var xc:Number; var yc:Number;
 		var pstatus = "";
-		if (this.cards.length == 1) {
+		if (this.cards.length == 1) { // only one card left in hand, so not a hard choice
 			i = 0;
 		} else {
-			//i = Math.floor(Math.random() * ((this.cards.length-1) - 1)) + 1;
-			i = _root.randRange(0,(this.cards.length-1));
+			i = this.chooseBestCard();
 		}
 		this.cardPlayed = this.cards.splice(i,1);
 		if (_root.turnsCompleted == 0) {
@@ -61,6 +60,18 @@
 		pstatus += "Played "+this.cardPlayed[0].cardName;
 		_root[this.playerName+"status"] = pstatus;
 		//return this.cardPlayed;
+	}
+	private function chooseBestCard() {
+		/***********************************************************
+			Choose a card from your hand based on
+			number of tricks bid, overbid/underbid of hand,
+			number of trump cards, suit led, face value and
+			chance of winning a trick and getting to determine
+			the suit of future tricks.
+		
+			But right now, we just return a random card
+		************************************************************/
+			return _root.randRange(0,(this.cards.length-1));		
 	}
 	public function removePlayedCard() {
 		var card = _root[this.cardPlayed[0].cardName];
