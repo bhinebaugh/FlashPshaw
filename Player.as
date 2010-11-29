@@ -6,6 +6,8 @@
 	var tricksWon:Number;
 	var cards:Array;
 	var cardPlayed:Array; // a single-element array that references the card taken out of hand
+	var strategy; // will be used to set which approach (function) this player uses to choose a card or bid
+	var human:Boolean; // whether the player is computer-controlled or user-controlled
 
 	function Player( pname:String ) { //constructor function/method
 		this.playerName = pname;
@@ -14,6 +16,7 @@
 		this.tricksWon = 0;
 		this.cards = new Array();
 		this.cardPlayed = new Array();
+		this.human = false;
 	}
 
 	public function addCard( c:Card ) {
@@ -22,7 +25,7 @@
 	}
 	public function showHand( cardAreaX:Number ) {
 		var i=0; var yy=160;
-		if (playerName == "player0") {
+		if (this.human) {
 			yy = _root.playersCardsArea._y + 50;
 		} else {
 			_root[this.playerName+"status"] += " Showing cards";
@@ -31,7 +34,7 @@
 			var xx = cardAreaX + (30*i);
 			//c.displayFace(xx, yy);
 			this.cards[c].showCard(xx, yy);
-			if (playerName == "player0") this.cards[c].showFace();
+			if (this.human) this.cards[c].showFace();
 			i++;
 		}
 	}
@@ -46,11 +49,11 @@
 		this.cardPlayed = this.cards.splice(i,1);
 		if (_root.turnsCompleted == 0) {
 			_root.ledSuit = this.cardPlayed[0].suit;
-			pstatus += "Led "+_global.suits[this.cardPlayed[0].suit]+". ";
+			pstatus += "Led with"+_global.suits[this.cardPlayed[0].suit]+".\n";
 		}
 		if (this.cardPlayed[0].suit == _root.trump.suit) {
 			_root.trumpPlayed = true;
-			pstatus += "Trumped. ";
+			pstatus += "Trumped.\n";
 		}
 		this.cardPlayed[0].showFace();
 		xc = _root.playedCardsArea._x + _root.currentPlayer*70;
