@@ -63,7 +63,13 @@ function dealCards(rOP) {
 	}
 	displayCardsLeftInDeck = deck.length;
 }
-
+function removePlayedCards() {
+	//remove cards in playing area
+	for(i=0;i<numberOfPlayers;i++) {
+		players[i].removePlayedCard();
+		removeMovieClip(players[i].cardPlayed[0].cardName);
+	}
+}
 function updateBestCard() {
 		_global.bestCard[0] = _global.lastCard[0];
 		_global.bestCard[1] = _global.lastCard[1];
