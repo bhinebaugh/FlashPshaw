@@ -60,3 +60,12 @@ if (trumpPlayed == true) {
 	displayStatus = players[winnerPlayer].playerName+" won the trick.";
 	players[winnerPlayer].tricksWon++
 }
+
+function evaluateBids() {
+	for(var i=0; i<numberOfPlayers; i++) {
+		var msg = players[i].playerName;
+		msg += " bid "+players[i].bid;
+		msg += ", made "+players[i].tricksWon;
+		trace(msg);
+	}
+}

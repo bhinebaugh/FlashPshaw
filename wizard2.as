@@ -98,3 +98,46 @@ function translateCardValue(v) {
 	}
 	return faceName.toString();
 }
+function createBidButtons() {
+	bidButtons = new Array();
+	for ( var i=0; i <= roundOfPlay; i++) {
+		var bidName = "bid"+i;
+		bidButtons.push(bidArea.attachMovie("bid choice","bid"+i,1200+i));
+		bidButtons[i]._x = 0 + i*26; //playersCardsArea._x+180+(i*26);
+		bidButtons[i]._y = 22; //playersCardsArea._y+28;
+		bidButtons[i].bidnumval = i;
+		bidButtons[i].gotoAndStop(0);
+		bidButtons[i].onPress = clickedBid;
+		bidButtons[i].clickAgain = function() {
+			this.gotoAndStop(0);
+		}
+	}
+}
+function clickedBid() {
+	var previousBid = _global.players[0].bid;
+	//if previous bid was valid, unset that MC
+	if(previousBid >= 0 && previousBid <= _global.roundOfPlay) {
+		bidButtons[previousBid].play();
+		bidButtons[previousBid].gotoAndStop(0); //clickAgain();
+	}
+	if(previousBid == this.bidnumval) {
+		_global.players[0].bid = -1;
+		continueButton.enabled = false;
+	} else {
+		this.gotoAndStop(3);
+		_global.players[0].bid = this.bidnumval;
+		continueButton.enabled = true;
+	}
+}
+function acceptPlayerBid() {
+	trace("Player bid ... "+players[0].bid);
+	//retrieve bid amount var previousBid = _global.players[0].bid;
+	//if(previousBid >= 0 && previousBid < _global.roundOfPlay) {
+		gotoAndPlay("Finish bids");
+	//}
+	for ( var i=0; i <= roundOfPlay; i++) {
+		bidButtons[i].swapDepths(8800+i);
+		bidButtons[i].removeMovieClip();
+	}
+	removeMovieClip("bidArea");
+}
