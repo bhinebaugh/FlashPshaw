@@ -60,7 +60,23 @@ if (trumpPlayed == true) {
 	displayStatus = players[winnerPlayer].playerName+" won the trick.";
 	players[winnerPlayer].tricksWon++
 }
-
+function tabulateBids() {
+	var bidtally = 0;
+	for (i = 0; i < numberOfPlayers; i++) {
+			bidtally += players[i].bid;
+	}
+	if (bidtally > roundOfPlay) {
+		trace('Overbid ('+bidtally.toString()+')');
+		displayStatus = "Overbid";
+	} else if (bidtally < roundOfPlay) {
+		trace('Underbid ('+bidtally.toString()+')');
+		displayStatus = "Underbid";
+	} else {
+		trace('Aggregate bid equals number of tricks available.');
+		displayStatus = "Even bid";
+	}
+	return bidtally;
+}
 function evaluateBids() {
 	for(var i=0; i<numberOfPlayers; i++) {
 		var msg = players[i].playerName;

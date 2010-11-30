@@ -41,6 +41,14 @@ function randRange(min:Number, max:Number):Number {
     var randomNum:Number = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNum;
 }
+function generatePlayers(nOP) {
+	_global.players = new Array();
+	players[0] = new Player("you");
+	players[0].human = true;
+	for( i=1; i<nOP; i++ ) {
+			players[i] = new Player("Player "+i);
+	}
+}
 function generateDeck() {
 	//_global.
 	temp_deck = new Array();
