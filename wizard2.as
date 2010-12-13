@@ -1,33 +1,4 @@
-﻿//objects and definitions for Wizard players, cards, rules, etc
-//************Player object***********
-/* now its own class file with new object notation **
-function Player(pname) {
-	this.playerName = pname;
-	this.score = 0;
-	this.bid = 0;
-	this.tricksWon = 0;
-	this.cards = new Array();
-	this.cardPlayedName = "";
-}
-Player.prototype.playCard = function(playerId) {
-	var i = randRange(0,this.cards.length-1);
-	var c = this.cards.splice(i,1);
-	var cardPlayed = new Array;
-	cardPlayed[0] = c[0][0];
-	cardPlayed[1] = c[0][1];
-	trace("Player "+playerId+" plays ("+cardPlayed[0]+" "+cardPlayed[1]+") ... "+translateCard(cardPlayed)+".");
-	this.cardPlayedName = "card"+playerId+"-"+i;
-	_root["card"+playerId+"-"+i]._y = _root.playedCardsArea._y + 60;
-	_root["card"+playerId+"-"+i]._x = _root.playedCardsArea._x + playerId*60;
-	return cardPlayed;
-}
-Player.prototype.makeBid = function() {
-	var bidAmount = randRange(0,_global.roundOfPlay);
-	trace(this.playerName+" bids "+bidAmount+". 0-"+_global.roundOfPlay);
-	this.bid = bidAmount;
-	return bidAmount;
-}
-*/
+﻿//utility functions for Wizard - game/turn management, trick judging, etc
 var dxc:Number;
 var dyc:Number;
 //score (round x player)
@@ -43,10 +14,10 @@ function randRange(min:Number, max:Number):Number {
 }
 function generatePlayers(nOP) {
 	_global.players = new Array();
-	players[0] = new Player("you");
+	players[0] = new Player("you", 0);
 	players[0].human = true;
 	for( i=1; i<nOP; i++ ) {
-			players[i] = new Player("Player "+i);
+			players[i] = new Player("Player "+i, i);
 	}
 }
 function generateDeck() {
@@ -77,12 +48,6 @@ function removePlayedCards() {
 		players[i].removePlayedCard();
 		removeMovieClip(players[i].cardPlayed[0].cardName);
 	}
-}
-function updateBestCard() {
-		_global.bestCard[0] = _global.lastCard[0];
-		_global.bestCard[1] = _global.lastCard[1];
-		_global.bestCard[2] = _global.currentPlayer;
-		trace("Last card was the best one so far.");
 }
 
 //deprecate this function; make it a class method ? maybe not?

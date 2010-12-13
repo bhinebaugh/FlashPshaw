@@ -9,14 +9,15 @@
 	var strategy; // will be used to set which approach (function) this player uses to choose a card or bid
 	var human:Boolean; // whether the player is computer-controlled or user-controlled
 
-	function Player( pname:String ) { //constructor function/method
+	function Player( pname:String, pnumber:Number ) { //constructor function/method
 		this.playerName = pname;
+		this.playerNumber = pnumber;
 		this.score = 0;
 		this.bid = 0;
 		this.tricksWon = 0;
 		this.cards = new Array();
 		this.cardPlayed = new Array();
-		this.human = false;
+		this.human = false;  //computer-controlled by default
 	}
 
 	public function addCard( c:Card ) {

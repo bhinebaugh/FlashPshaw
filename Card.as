@@ -24,13 +24,14 @@
 	} */
 
 	public function showCard( x2, y2 ) {
-		_root.attachMovie(_global.suits[this.suit]+" card", this.cardName, _root.getNextHighestDepth());
+		_root.attachMovie("card", this.cardName, _root.getNextHighestDepth());
 		_root[this.cardName]._x = x2;
 		_root[this.cardName]._y = y2;
-		_root[this.cardName].cardNumber = _global.faceCards[this.numval];
+		//_root[this.cardName].cardNumber = _global.faceCards[this.numval];
 	}
 	public function showFace() {
-		_root[this.cardName].gotoAndStop(2);
+		_root[this.cardName].gotoAndStop(this.suit+2);
+		_root[this.cardName].thecardnumber.gotoAndStop(this.numval+2);
 	}
 	public function animateMoveTo( x2, y2 ) {
 		_root[this.cardName].dxc = (x2 - _root[this.cardName]._x)/20; 

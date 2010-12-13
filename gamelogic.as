@@ -21,11 +21,12 @@ function evaluateTrick() {
 				trace(" Following suit or trump but not better. "+players[nextPlayer].playerName);
 			}
 		} else {
-			trace(" Not following suit and not a trump.");
+			//adjust message depending if trump was used to win hand
+			if (trumpPlayed) {trace(" Not trump suit.") } else { trace(" Not following suit.") }
 		}
 	}
 
-/*
+/* deprecated (and buggy?) trick evalutation code
 for(i = 0; i<3; i++) {
 	nextPlayer = ++nextPlayer;
 	if(nextPlayer >= numberOfPlayers) nextPlayer = 0;
@@ -59,6 +60,12 @@ if (trumpPlayed == true) {
 	trace("====================> Winner is "+players[winnerPlayer].playerName);
 	displayStatus = players[winnerPlayer].playerName+" won the trick.";
 	players[winnerPlayer].tricksWon++
+}
+function updateBestCard() {
+		_global.bestCard[0] = _global.lastCard[0];
+		_global.bestCard[1] = _global.lastCard[1];
+		_global.bestCard[2] = _global.currentPlayer;
+		trace("Last card was the best one so far.");
 }
 function tabulateBids() {
 	var bidtally = 0;
