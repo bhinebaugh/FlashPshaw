@@ -92,3 +92,12 @@ function evaluateBids() {
 		trace(msg);
 	}
 }
+function showScores() {
+	trace("Game ended. Thank you for playing!");
+	var msg = "I don't know how to score this game!\n";
+	msg += "==============================";
+	for (i=0; i < numberOfPlayers; i++) {
+		msg += players[i].playerName + ":\t" + players[i].score + "\n";
+	}
+	_root.displayStatus = msg;
+}
